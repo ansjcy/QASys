@@ -66,5 +66,18 @@ app.use(function(err, req, res, next) {
 //  socket.emit('getData', { my: 'data' });
 //});
 
+var io = require('socket.io')(1234);
+console.log("start to listen on socket..");
+io.on('connection', function(socket){
+  console.log('a user connected');
+
+  socket.on('reqData', function (data) {
+    //load data from database
+
+    console.log(data);
+    socket.emit('getData', { my: 'data' });
+  });
+});
+
 
 module.exports = app;

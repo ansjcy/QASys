@@ -13,3 +13,13 @@ front/.idea/workspace.xml
 front/bower_components/*
 
 sys/node_modules/*
+
+sys/.idea/jsLibraryMappings.xml
+
+sys/.idea/libraries/sys_node_modules.xml
+
+sys/.idea/sys.iml
+
+sys/.idea/workspace.xml
+
+*.iml
