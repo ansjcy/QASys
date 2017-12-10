@@ -26,3 +26,4 @@ sys/.idea/workspace.xml
 
 node_modules/*
 *.swp
+.DS_Store
