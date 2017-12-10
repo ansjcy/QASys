@@ -115,6 +115,41 @@ io.on('connection', function(socket){
           });
     }
 
+    //data.type: transaction
+    //data:[user_id, amount, before_balance, after_balance]
+    //
+    //returns:
+    //        data:rows
+    //        getby rows[i].field_name
+    else if(data.type === 'transaction_update'){
+          connection.query('update User set balance = ' + data.after_balance + ' where user_id = ' + data.user_id, function(err, result){
+            if(err) {
+              console.log('[UPDATE ERROR]update transaction failed:'+err.message);
+              socket.emit('result',{result:false});
+              return;
+            }
+            console.log('-----------UPDATE BALENCE------------');
+            console.log('Update affectedRows',result.affectedRows);
+            socket.emit('result', {result:true});
+          });
+          connection.query('insert into transaction(user_id, amount, before_balance, after_balance) values(?,?,?,?)',[data.user_id, data.amount, data.before_balance, data.after_balance], function(err, result){
+            if(err){
+              console.log('[INSERT ERROR]insert transaction record failed:' + err.message);
+              socket.emit('result', {result:false});
+              return;
+            }
+            cosole.log('-----------INSERT BALENCE RECORD-----------');
+            console.log('Insert:',result);
+            socket.emit('result', {result:true});
+          });
+    }
+    else if(data.type === 'transaction_query'){
+          connection.query('select * from Transaction where user_id = ' + data.user_id, function(err, rows, field){
+            if(err){
+              console.log('[QUERY ERROR]transaction que')
+            }
+          });
+    }
     // connection.query('SELECT * from question', function (err, rows, fields) {
     //   if (err) throw err;
     //   //console.log('The solution is: ', rows[0].question_id, rows[1].question_id);
