@@ -68,7 +68,7 @@ app.use(function(err, req, res, next) {
 //  socket.emit('getData', { my: 'data' });
 //});
 
-var connection = require('./model/db')
+var connection = require('./model/db');
 
 var io = require('socket.io')(1234);
 console.log("start to listen on socket..");
@@ -78,11 +78,48 @@ io.on('connection', function(socket){
   socket.on('reqData', function (data) {
     //load data from database
     console.log(data);
-    connection.query('SELECT * from pet as solution', function (err, rows, fields) {
-      if (err) throw err;
-      console.log('The solution is: ', rows);
-      //socket.emit('getData', { my: 'data' });
-    });
+
+    //data.type: question, tag, answer (string)
+    //data.content: question -> question title,
+    //              tag -> tagname
+    //              answer -> question_id(string)
+    //returns:
+    //        data:rows
+    //        getby rows[i].field_name
+
+    if(data.type === 'question'){
+      connection.query('select * from question where title like %' + data.content + '%', function(err, rows, fields){
+        if (err) throw err;
+          socket.emit('question', { data: rows });
+      });
+    }
+
+    // else if(data.type === 'person'){
+    //       connection.query('select * from person where title like %' + data.content + '%', function(err, rows, fields){
+    //         if (err) throw err;
+    //           socket.emit('question', { data: rows });
+    //       })
+    // }
+
+    else if(data.type === 'tag'){
+          connection.query('select * from QuestionTag where tag_name = ' + data.content, function(err, rows, fields){
+            if (err) throw err;
+              socket.emit('tag', { data: rows });
+          });
+    }
+
+    else if(data.type === 'answer'){
+          connection.query('select * from answer where question_id = ' + data.content, function(err, rows, fields){
+            if (err) throw err;
+              socket.emit('answer', { data: rows });
+          });
+    }
+
+    // connection.query('SELECT * from question', function (err, rows, fields) {
+    //   if (err) throw err;
+    //   //console.log('The solution is: ', rows[0].question_id, rows[1].question_id);
+    //   //socket.emit('getData', { my: 'data' });
+    // });
   });
 });
 
