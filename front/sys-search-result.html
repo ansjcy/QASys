@@ -26,38 +26,7 @@
 </head>
 <body>
 <div><!--BEGIN THEME SETTING-->
-    <div id="theme-setting"><a href="#" data-toggle="dropdown" data-step="1" data-intro="&lt;b&gt;Many styles&lt;/b&gt; and &lt;b&gt;colors&lt;/b&gt; be created for you. Let choose one and enjoy it!" data-position="left" class="btn-theme-setting"><i class="fa fa-cog"></i></a>
-
-        <div class="content-theme-setting"><h4 class="mtn">Theme Styles</h4><select id="list-style" class="form-control">
-            <option value="style1">Flat Squared style</option>
-            <option value="style2">Flat Rounded style</option>
-            <option value="style3" selected="selected">Flat Border style</option>
-        </select><br/><h4 class="mtn">Theme Colors</h4>
-            <ul id="list-color" class="list-unstyled list-inline">
-                <li data-color="green-dark" data-hover="tooltip" title="Green - Dark" class="green-dark"></li>
-                <li data-color="red-dark" data-hover="tooltip" title="Red - Dark" class="red-dark"></li>
-                <li data-color="pink-dark" data-hover="tooltip" title="Pink - Dark" class="pink-dark"></li>
-                <li data-color="blue-dark" data-hover="tooltip" title="Blue - Dark" class="blue-dark"></li>
-                <li data-color="yellow-dark" data-hover="tooltip" title="Yellow - Dark" class="yellow-dark"></li>
-                <li data-color="green-grey" data-hover="tooltip" title="Green - Grey" class="green-grey"></li>
-                <li data-color="red-grey" data-hover="tooltip" title="Red - Grey" class="red-grey"></li>
-                <li data-color="pink-grey" data-hover="tooltip" title="Pink - Grey" class="pink-grey"></li>
-                <li data-color="blue-grey" data-hover="tooltip" title="Blue - Grey" class="blue-grey"></li>
-                <li data-color="yellow-grey" data-hover="tooltip" title="Yellow - Grey" class="yellow-grey"></li>
-                <li data-color="yellow-green" data-hover="tooltip" title="Yellow - Green" class="yellow-green"></li>
-                <li data-color="orange-grey" data-hover="tooltip" title="Orange - Grey" class="orange-grey"></li>
-                <li data-color="pink-blue" data-hover="tooltip" title="Pink - Blue" class="pink-blue"></li>
-                <li data-color="pink-violet" data-hover="tooltip" title="Pink - Violet" class="pink-violet active"></li>
-                <li data-color="orange-violet" data-hover="tooltip" title="Orange - Violet" class="orange-violet"></li>
-                <li data-color="pink-green" data-hover="tooltip" title="Pink - Green" class="pink-green"></li>
-                <li data-color="pink-brown" data-hover="tooltip" title="Pink - Brown" class="pink-brown"></li>
-                <li data-color="orange-blue" data-hover="tooltip" title="Orange - Blue" class="orange-blue"></li>
-                <li data-color="yellow-blue" data-hover="tooltip" title="Yellow - Blue" class="yellow-blue"></li>
-                <li data-color="green-blue" data-hover="tooltip" title="Green - Blue" class="green-blue"></li>
-            </ul>
-        </div>
-    </div>
-    <!--END THEME SETTING--><!--BEGIN BACK TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP--><!--BEGIN TOPBAR-->
+   <a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP--><!--BEGIN TOPBAR-->
     <div id="header-topbar-option-demo" class="page-header-topbar">
         <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" data-intro="&lt;b&gt;Topbar&lt;/b&gt; has other styles with live demo. Go to &lt;b&gt;Layouts-&gt;Header&amp;Topbar&lt;/b&gt; and check it out." class="navbar navbar-default navbar-static-top">
             <div class="navbar-header">
@@ -148,8 +117,6 @@
 
 
 
-
-
         <div id="page-wrapper"><!--BEGIN TITLE & BREADCRUMB PAGE-->
             <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
                 <div class="page-header pull-left">
@@ -169,8 +136,10 @@
                         <div class="panel">
                             <div class="panel-body">
                                 <div id="grid-layout-table-1" class="box jplist">
-                                    <div class="jplist-ios-button"><i class="fa fa-sort"></i>jPList Actions</div>
-                                    <div class="jplist-panel box panel-top">
+                                    <div class="jplist-ios-button" id="my-control"><i class="fa fa-sort"></i>jPList Actions</div>
+
+                                    <!--control-->
+                                    <div class="jplist-panel box panel-top" style = "display: none">
                                         <button type="button" data-control-type="reset" data-control-name="reset" data-control-action="reset" class="jplist-reset-btn btn btn-default">Reset<i class="fa fa-share mls"></i></button>
                                         <div data-control-type="drop-down" data-control-name="paging" data-control-action="paging" class="jplist-drop-down form-control">
                                             <ul class="dropdown-menu">
@@ -202,28 +171,31 @@
                                         <div data-type="Page {current} of {pages}" data-control-type="pagination-info" data-control-name="paging" data-control-action="paging" class="jplist-label btn btn-default"></div>
                                         <div data-control-type="pagination" data-control-name="paging" data-control-action="paging" class="jplist-pagination"></div>
                                     </div>
+                                    <!--end control-->
                                     <div class="box text-shadow">
                                         <table class="demo-tbl" id="my-result-table">
 
 
                                             <!--<item>1</item>-->
                                             <tr class="tbl-item" id="first-item" style="display: none"><!--<img/>-->
-                                                <td class="img"><img src="vendors/jplist/html/img/thumbs/arch-1.jpg" alt="" title=""/></td>
-                                                <!--<data></data>-->
+                                            <td class="img"><img src="vendors/jplist/html/img/thumbs/arch-1.jpg" alt="" title=""/></td>
+                                            <!--<data></data>-->
 
-                                                <td class="td-block"><p class="date"></p>
+                                            <td class="td-block"><p class="date"></p>
 
-                                                    <p class="title" id="aaaa">nothing to show <span class="badge badge-default">nothing</span> </p>
+                                                <p class="title" id="aaaa">nothing to show <span class="badge badge-default">nothing</span> </p>
 
 
-                                                    <p class="desc">Nothing to show</p>
+                                                <p class="desc">Nothing to show</p>
 
-                                                    <p class="like" id="">0 likes</p></td>
-                                            </tr>
+                                                <p class="like" id="">0 likes</p></td>
+                                        </tr>
 
 
                                         </table>
                                     </div>
+
+
                                     <div class="box jplist-no-results text-shadow align-center"><p>No results found</p></div>
                                     <div class="jplist-ios-button"><i class="fa fa-sort"></i>jPList Actions</div>
                                     <div class="jplist-panel box panel-bottom">
@@ -283,6 +255,7 @@
 <script src="vendors/jplist/html/js/jplist.min.js"></script>
 <script src="js/jplist.js"></script>
 <!--CORE JAVASCRIPT-->
+<script src="bower_components/socket.io-client/dist/socket.io.js"></script>
 <script src="js/main.js"></script>
 <script>(function (i, s, o, g, r, a, m) {
     i['GoogleAnalyticsObject'] = r;
@@ -315,6 +288,7 @@ ga('send', 'pageview');
 //    <p class="like" id="">5 likes</p></td>
 //    </tr>
 $(window).load(function() {
+    var socket = io.connect("http://localhost:1234");
 
     var promise = new Promise(function (resolve, reject) {
         var data = JSON.parse(localStorage.data);
@@ -346,20 +320,28 @@ $(window).load(function() {
             td.append("<p class='desc'>"+data[i].body+"</p>");
             td.append("<p class='like' id=''>"+data[i].comment_count+" comments</p></td>");
         }
+
+
+        //bind click func:
+        var clickFunc = function(d, i){
+            var questionId = d.srcElement.id.substr(6);
+            console.log(questionId);
+            socket.emit("recAnswer", { data:  questionId});
+            socket.on('detail', function (data) {
+                console.log("get query data:");
+                console.log(data);
+                sessionStorage.setItem("data", JSON.stringify(data));
+//                window.location.href = "./sys-search-result.html";
+            });
+
+        };
+        var ps = document.getElementsByClassName("title");
+        for(var i = 0; i < ps.length; ++i)
+        {
+            ps[i].onclick = clickFunc;
+        }
     });
 });
-
-
-
-    var clickFunc = function(d, i){
-        console.log(d.srcElement.id);
-        window.location.href = "./sys-search-result-detail.html";
-    };
-    var ps = document.getElementsByClassName("title");
-    for(var i = 0; i < ps.length; ++i)
-    {
-        ps[i].onclick = clickFunc;
-    }
 
 </script>
 </body>
