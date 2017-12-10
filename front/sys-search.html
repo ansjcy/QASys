@@ -148,7 +148,8 @@
                                         <div class="panel panel-violet">
                                             <div class="panel-heading">Search your question and answers</div>
                                             <div class="panel-body pan">
-                                                <form action="#" class="form-horizontal form-seperated form-row-stripped">
+                                                <!--<form action="./sys-search-result.html" class="form-horizontal form-seperated form-row-stripped">-->
+                                                <form action="" class="form-horizontal form-seperated form-row-stripped">
                                                     <div class="form-body">
                                                         <div class="form-group"><label for="searchKeyWord" class="col-md-3 control-label">Key word</label>
 
@@ -181,7 +182,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-actions text-right pal">
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                        <button type="submit" class="btn btn-primary" onclick="func()">Submit</button>
                                                         &nbsp;
                                                         <button type="button" class="btn btn-green">Cancel</button>
                                                     </div>
@@ -226,5 +227,36 @@
 <script src="bower_components/socket.io-client/dist/socket.io.js"></script>
 <!--CORE JAVASCRIPT-->
 <script src="js/main.js"></script>
+<script>
+    var func = function (d, i) {
+        var keyword = document.getElementById("searchKeyWord").value;
+        var category = document.getElementById("searchTag").value;
+        var inputDay = document.getElementById("inputDay").value;
+        var inputMonth = document.getElementById("inputMonth").value;
+        var inputYear = document.getElementById("inputYear").value;
+
+        var communityOp = document.getElementById("selectCommunity");
+        var community = communityOp.options[communityOp.selectedIndex].value;
+        var params = {
+            keyword: keyword,
+            category: category,
+            inputYear: inputYear,
+            inputMonth: inputMonth,
+            inputDay: inputDay,
+            community: community
+        };
+        sessionStorage.setItem("params", JSON.stringify(params));
+
+
+        var socket = io.connect("http://localhost:1234");
+        socket.emit("reqData", { data: params });
+        socket.on('getData', function (data) {
+            console.log(data);
+            //socket.emit('my other event', { my: 'data' });
+        });
+
+
+    }
+</script>
 </body>
 </html>
