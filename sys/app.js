@@ -243,7 +243,7 @@ io.on('connection', function(socket){
   });
 
   // retrieve answer according to question id
-  socket.on('reqData', function (DATA) {
+  socket.on('reqAnswer', function (DATA) {
     console.log(DATA);
     var data = DATA.data;
 
@@ -254,7 +254,7 @@ io.on('connection', function(socket){
       socket.emit('result', { data: rows });
     });
   });
-  
+
 });
 
 

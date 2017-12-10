@@ -254,7 +254,7 @@
         };
 
         socket.emit("reqData", { data: params });
-        socket.on('getData', function (data) {
+        socket.on('result', function (data) {
             console.log("get query data:");
             console.log(data);
             sessionStorage.setItem("data", JSON.stringify(data));

@@ -315,34 +315,34 @@ ga('send', 'pageview');
 //    <p class="like" id="">5 likes</p></td>
 //    </tr>
 $(window).load(function() {
-    var data = [{
-        question_id: 123,
-        title: "haha",
-        body: "1234567891011121314151617181910",
-        time: "2011-11-11",
-        comments: 5,
-        tag: ["1","2","3"]
-    },
-        {
-            question_id: 124,
-            title: "haha",
-            body: "1234567891011121314151617181910",
-            time: "2011-11-11",
-            comments: 5,
-            tag: ["1","2","3"]
-        },
-        {
-            question_id: 125,
-            title: "haha",
-            body: "1234567891011121314151617181910",
-            time: "2011-11-11",
-            comments: 5,
-            tag: ["1","2","3"]
-        }];
+    // var data = [{
+    //     question_id: 123,
+    //     title: "haha",
+    //     body: "1234567891011121314151617181910",
+    //     create_date: "2011-11-11",
+    //     comment_count: 5,
+    //     tags: ["1","2","3"]
+    // },
+    //     {
+    //         question_id: 124,
+    //         title: "haha",
+    //         body: "1234567891011121314151617181910",
+    //         create_date: "2011-11-11",
+    //         comment_count: 5,
+    //         tags: ["1","2","3"]
+    //     },
+    //     {
+    //         question_id: 125,
+    //         title: "haha",
+    //         body: "1234567891011121314151617181910",
+    //         create_date: "2011-11-11",
+    //         comment_count: 5,
+    //         tags: ["1","2","3"]
+    //     }];
 
-//    var data = JSON.parse(sessionStorage.params);
-//    console.log("result get data: ");
-//    console.log(data);
+   var data = JSON.parse(sessionStorage.data);
+   console.log("result get data: ");
+   console.log(data);
 
     var tr = $("#first-item");
     //change.
@@ -353,15 +353,15 @@ $(window).load(function() {
         tr.append("<td class='img'><img src='vendors/jplist/html/img/thumbs/arch-1.jpg' alt='' title=''/></td>");
         tr.append($("<td class='td-block' id='block-"+data[i].question_id+"' </td>"));
         var td = $("#block-"+data[i].question_id);
-        td.last().append("<p class='date'>"+data[i].time+"</p>");
+        td.last().append("<p class='date'>"+data[i].create_date+"</p>");
         td.append("<p class='title' id='title-"+data[i].question_id+"'>"+data[i].title+" </p>");
         var title = $("#title-"+data[i].question_id);
-        for(var j = 0; j < data[i].tag.length; ++j)
+        for(var j = 0; j < data[i].tags.length; ++j)
         {
-            title.append("<span class='badge badge-default'>"+data[i].tag[j]+"</span>");
+            title.append("<span class='badge badge-default'>"+data[i].tags[j]+"</span>");
         }
         td.append("<p class='desc'>"+data[i].body+"</p>");
-        td.append("<p class='like' id=''>"+data[i].comments+" comments</p></td>");
+        td.append("<p class='like' id=''>"+data[i].comment_count+" comments</p></td>");
     }
 
 //    var td = tr.append("<td></td>");
