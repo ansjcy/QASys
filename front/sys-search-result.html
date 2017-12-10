@@ -327,11 +327,18 @@ $(window).load(function() {
             var questionId = d.srcElement.id.substr(6);
             console.log(questionId);
             socket.emit("reqAnswer", { data: questionId});
-            socket.on('detail', function (data) {
+            socket.on('detail', function (ans) {
                 console.log("get query data:");
-                console.log(data);
-                sessionStorage.setItem("data", JSON.stringify(data));
-               window.location.href = "./sys-search-result.html";
+                console.log(ans);
+                loacalStorage.setItem("answer_answers", JSON.stringify(ans));
+                for(var j = 0; j < data.length; ++j)
+                {
+                    if(data[j].question_id = questionId)
+                    {
+                        localStorage.setItem("answer_question", data[j]);
+                    }
+                }
+               window.location.href = "./sys-search-result-detail.html";
             });
 
         };
