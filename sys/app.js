@@ -12,6 +12,9 @@ var users = require('./routes/users');
 
 var app = express();
 
+//var connection = require('./model/db');
+var mysql = require('mysql');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.html', ejs.__express);
@@ -24,7 +27,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', routes);
 app.use('/users', users);
 
@@ -66,6 +68,8 @@ app.use(function(err, req, res, next) {
 //  socket.emit('getData', { my: 'data' });
 //});
 
+var connection = require('./model/db')
+
 var io = require('socket.io')(1234);
 console.log("start to listen on socket..");
 io.on('connection', function(socket){
@@ -73,9 +77,12 @@ io.on('connection', function(socket){
 
   socket.on('reqData', function (data) {
     //load data from database
-
     console.log(data);
-    socket.emit('getData', { my: 'data' });
+    connection.query('SELECT * from pet as solution', function (err, rows, fields) {
+      if (err) throw err;
+      console.log('The solution is: ', rows);
+      //socket.emit('getData', { my: 'data' });
+    });
   });
 });
 
