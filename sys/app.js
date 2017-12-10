@@ -15,6 +15,8 @@ var app = express();
 //var connection = require('./model/db');
 var mysql = require('mysql');
 
+var hashmap = require('hashmap');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.html', ejs.__express);
@@ -84,14 +86,16 @@ io.on('connection', function(socket){
     //    tag -> tagname
     //    date -> yy-mm-dd
     //    community -> community
+
     //returns:
     //        data:rows
     //        getby rows[i].field_name
+    //        rows[i].tag []
 
     var data = DATA.data;
     if(data.community.length != 0){
       var querybody = 'select distinct * from question, QuestionTag, persons, community where question.question_id = QuestionTag.question_id and persons.person_id = question.asker_id and persons.community = community.community_id and title like \'%'
-                  + data.question + '%\' and community = \'' + data.community + '\'';
+                  + data.question + '%\' and community.name = \'' + data.community + '\'';
 
       if (data.tag.length != 0){
         querybody += 'and tag_name = \'' + data.tag + '\'';
@@ -104,7 +108,19 @@ io.on('connection', function(socket){
       connection.query(querybody, function(err, rows, fields){
         if (err) throw err;
         console.log('hellos');
-          socket.emit('result', { data: rows });
+        map = new hashmap();
+        for (var i=0; i<rows.length; i+=1){
+          if (!map.has(rows[i].question_id)){
+            map[rows[i].question_id] = i;
+            rows[i].tags = [rows[i].tagname];
+          }
+          else{
+            map[rows[i].question_id].tags.push(rows[i].tag_name);
+            array.splice(i, 1);
+            i-=1;
+          }
+        }
+        socket.emit('result', { data: rows });
       });
     }
 
@@ -118,10 +134,24 @@ io.on('connection', function(socket){
       if (data.date.length != 0){
         querybody += 'and create_date <= \'' + data.date + '\''
       }
+
       console.log(querybody);
       connection.query(querybody, function(err, rows, fields){
         if (err) throw err;
         console.log(rows.length);
+        map = new hashmap();
+        for (var i=0; i<rows.length; i+=1){
+          if (!map.has(rows[i].question_id)){
+            map.set(rows[i].question_id, i);
+            rows[i].tags = [];
+            rows[i].tags.push(rows[i].tag_name)
+          }
+          else{
+            rows[map.get(rows[i].question_id)].tags.push(rows[i].tag_name);
+            rows.splice(i, 1);
+            i-=1;
+          }
+        }
           socket.emit('result', { data: rows });
       });
     }
