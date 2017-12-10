@@ -168,7 +168,7 @@ io.on('connection', function(socket){
             else{
               console.log('-----------USER LOGIN CHECK-----------');
               console.log('USER LOGIN: FAILED');
-              socket.emit('login', {result : false;});
+              socket.emit('login', {result : false});
             }
         });
     }
