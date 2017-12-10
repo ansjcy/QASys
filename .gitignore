@@ -26,3 +26,6 @@ sys/.idea/workspace.xml
 
 node_modules/*
 *.swp
+.DS_Store
+sys/app.js
+sys/model/db.js
