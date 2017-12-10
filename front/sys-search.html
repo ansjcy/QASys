@@ -74,7 +74,7 @@
                 </ul>
             </div>
         </nav>
-      </div>
+    </div>
     <!--END TOPBAR-->
 
 
@@ -102,12 +102,12 @@
                     </li>
 
 
-                    <li class="active"><a href="index.html"><i class="fa fa-tachometer fa-fw">
+                    <li class="menu-title"><a href="index.html"><i class="fa fa-tachometer fa-fw">
                         <div class="icon-bg bg-orange"></div>
                     </i><span class="menu-title">Dashboard</span></a></li>
 
 
-                    <li class="menu-title"><a href="sys-search.html"><i class="fa fa-search fa-fw">
+                    <li class="active"><a href="sys-search.html"><i class="fa fa-search fa-fw">
                         <div class="icon-bg bg-orange"></div>
                     </i><span class="menu-title">Search</span></a></li>
 
@@ -135,86 +135,116 @@
         <!--the actual content of the page-->
 
         <div id="page-wrapper"><!--BEGIN TITLE & BREADCRUMB PAGE-->
-            <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
-                <div class="page-header pull-left">
-                    <div class="page-title">Dashboard</div>
-                </div>
-                <ol class="breadcrumb page-breadcrumb pull-right">
-                    <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                    <li class="hidden"><a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                    <li class="active">Dashboard</li>
-                </ol>
-                <div class="clearfix"></div>
-            </div>
-            <!--END TITLE & BREADCRUMB PAGE--><!--BEGIN CONTENT-->
             <div class="page-content">
-                <div id="tab-general">
-                    <div id="sum_box" class="row mbl">
-                        <div class="col-sm-6 col-md-3">
-                            <div class="panel profit db mbm">
-                                <div class="panel-body"><p class="icon"><i class="icon fa fa-shopping-cart"></i></p><h4 class="value">20</h4>
+                <div id="form-layouts" class="row">
+                    <div class="col-lg-12">
+                        <ul class="nav nav-pills nav-tabs responsive">
+                            <li class="active"><a href="#tab-form-seperated" data-toggle="tab">Advance Search</a></li>
+                        </ul>
+                        <div style="background: transparent; border: 0; box-shadow: none !important" class="tab-content pan mtl mbn responsive">
+                            <div id="tab-form-seperated" class="tab-pane fade active in">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="panel panel-violet">
+                                            <div class="panel-heading">Form Row Stripped</div>
+                                            <div class="panel-body pan">
+                                                <form action="#" class="form-horizontal form-seperated form-row-stripped">
+                                                    <div class="form-body">
+                                                        <div class="form-group"><label for="inputFirstName" class="col-md-3 control-label">First Name <span class='require'>*</span></label>
 
-                                    <p class="description">Saved Answers</p>
+                                                            <div class="col-md-4"><input id="inputFirstName" type="text" placeholder="First Name" class="form-control"/><span class="help-block">This is help text</span></div>
+                                                        </div>
+                                                        <div class="form-group has-error"><label for="inputLastName" class="col-md-3 control-label">Last Name <span class='require'>*</span></label>
+
+                                                            <div class="col-md-4">
+                                                                <div class="input-icon right"><i class="glyphicon glyphicon-ok"></i><input id="inputLastName" type="text" placeholder="Last Name" class="form-control"/></div>
+                                                                <span class="help-block text-danger">Please enter your Last Name!</span></div>
+                                                        </div>
+                                                        <div class="form-group"><label for="inputEmail" class="col-md-3 control-label">Email <span class='require'>*</span></label>
+
+                                                            <div class="col-md-4">
+                                                                <div class="input-icon"><i class="fa fa-envelope"></i><input type="text" placeholder="Email Address" class="form-control"/></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group"><label for="selGender" class="col-md-3 control-label">Gender <span class='require'>*</span></label>
+
+                                                            <div class="col-md-9">
+                                                                <div class="radio"><label class="radio-inline"><input type="radio" value="0" name="gender"/>&nbsp;
+                                                                    Male</label><label class="radio-inline"><input type="radio" value="1" name="gender"/>&nbsp;
+                                                                    Female</label></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group"><label for="inputBirthday" class="col-md-3 control-label">Birthday</label>
+
+                                                            <div class="col-md-6">
+                                                                <div class="row">
+                                                                    <div class="col-md-2 col-xs-4"><input id="inputDay" type="text" placeholder="dd" class="form-control"/></div>
+                                                                    <div class="col-md-2 col-xs-4"><input id="inputMonth" type="text" placeholder="mm" class="form-control"/></div>
+                                                                    <div class="col-md-2 col-xs-4"><input id="inputYear" type="text" placeholder="yyyy" class="form-control"/></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group"><label for="inputPhone" class="col-md-3 control-label">Phone</label>
+
+                                                            <div class="col-md-4">
+                                                                <div class="input-icon right"><i class="fa fa-mobile-phone"></i><input id="inputPhone" type="text" placeholder="" class="form-control"/></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group"><label for="inputAddress1" class="col-md-3 control-label">Address 1 <span class='require'>*</span></label>
+
+                                                            <div class="col-md-9"><input id="inputAddress1" type="text" placeholder="" class="form-control"/></div>
+                                                        </div>
+                                                        <div class="form-group"><label for="inputAddress2" class="col-md-3 control-label">Address 2</label>
+
+                                                            <div class="col-md-9"><input id="inputAddress2" type="text" placeholder="" class="form-control"/></div>
+                                                        </div>
+                                                        <div class="form-group"><label for="inputFirstName" class="col-md-3 control-label">District</label>
+
+                                                            <div class="col-md-4"><input id="inputDistrict" type="text" placeholder="" class="form-control"/></div>
+                                                        </div>
+                                                        <div class="form-group"><label for="inputCity" class="col-md-3 control-label">City <span class='require'>*</span></label>
+
+                                                            <div class="col-md-4">
+                                                                <div class="input-icon right"><i class="fa fa-map-marker"></i><input id="inputCity" type="text" placeholder="" class="form-control"/></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group"><label for="inputPostCode" class="col-md-3 control-label">Post Code <span class='require'>*</span></label>
+
+                                                            <div class="col-md-6">
+                                                                <div class="row">
+                                                                    <div class="col-md-2 col-xs-4"><input id="inputPostCode" type="text" placeholder="" class="form-control"/></div>
+                                                                    <div class="col-md-2 col-xs-4"><input id="inputPostCode" type="text" placeholder="" class="form-control"/></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group"><label for="selCountry" class="col-md-3 control-label">Country</label>
+
+                                                            <div class="col-md-4"><select id="selCountry" class="form-control">
+                                                                <option value="">Select a Country</option>
+                                                                <option value="">United States</option>
+                                                                <option value="">England</option>
+                                                                <option value="">France</option>
+                                                                <option value="">Spain</option>
+                                                            </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-actions text-right pal">
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                        &nbsp;
+                                                        <button type="button" class="btn btn-green">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-sm-6 col-md-3">
-                            <div class="panel profit db mbm">
-                                <div class="panel-body"><p class="icon"><i class="icon fa fa-money"></i></p><h4 class="value">100</h4>
-
-                                    <p class="description">Total Balance</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
-
-                </div>
-
-
-                <!--the recent saved question.-->
-                <div class="row">
-                    <div class="col-lg-9 col-md-9 col-sm-8 blog-articles"><h1>Latest Saved</h1>
-
-                        <div class="row">
-                            <div class="col-md-4 blog-img"><img src="images/icons/qm.jpeg" alt="" class="img-responsive"/>
-                                <ul class="list-inline blog-date">
-                                    <li><i class="fa fa-calendar fa-fw"></i><a href="#">May 10, 2013</a></li>
-                                    <li><i class="fa fa-comments fa-fw"></i><a href="#">41 Comments</a></li>
-                                </ul>
-                                <ul class="list-inline blog-tags">
-                                    <li><i class="fa fa-tags fa-fw"></i><a href="#" class="label label-default">Design</a><a href="#" class="label label-default">Development</a><a href="#" class="label label-default">Html</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-8 blog-article"><h3><a href="page-blog-item.html">Sed ut perspiciatis unde omnis iste natus.</a></h3>
-
-                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-                                    distinctio lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero consectetur adipiscing elit magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat. Pellentesque viverra vehicula sem ut volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus. Fusce condimentum
-                                    eleifend enim a feugiat.</p><a href="sys-search-result-detail.html" class="btn btn-primary">Read more
-                                    &nbsp;<i class="fa fa-arrow-circle-right"></i></a></div>
-                        </div>
-                        <hr/>
-                        <div class="row">
-                            <div class="col-md-4 blog-img"><img src="images/icons/qm.jpeg" alt="" class="img-responsive"/>
-                                <ul class="list-inline blog-date">
-                                    <li><i class="fa fa-calendar fa-fw"></i><a href="#">May 10, 2013</a></li>
-                                    <li><i class="fa fa-comments fa-fw"></i><a href="#">41 Comments</a></li>
-                                </ul>
-                                <ul class="list-inline blog-tags">
-                                    <li><i class="fa fa-tags fa-fw"></i><a href="#" class="label label-default">Design</a><a href="#" class="label label-default">Development</a><a href="#" class="label label-default">Html</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-8 blog-article"><h3><a href="page-blog-item.html">Sed ut perspiciatis unde omnis iste natus.</a></h3>
-
-                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-                                    distinctio lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero consectetur adipiscing elit magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat. Pellentesque viverra vehicula sem ut volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus. Fusce condimentum
-                                    eleifend enim a feugiat.</p><a href="sys-search-result-detail.html" class="btn btn-primary">Read more
-                                    &nbsp;<i class="fa fa-arrow-circle-right"></i></a></div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -242,7 +272,6 @@
 
 <!--<script src="bower_components/socket.io/lib/socket.js"></script>-->
 <script src="bower_components/socket.io-client/dist/socket.io.js"></script>
-<script src="js/index.js"></script>
 <!--CORE JAVASCRIPT-->
 <script src="js/main.js"></script>
 </body>
