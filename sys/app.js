@@ -247,11 +247,11 @@ io.on('connection', function(socket){
     console.log(DATA);
     var data = DATA.data;
 
-    querybody = 'select * from Answer where question_id = ' + data.question_id;
+    querybody = 'select * from Answer where question_id = ' + data;
     connection.query(querybody, function(err, rows, fields){
       if (err) throw err;
       console.log(rows.length);
-      socket.emit('result', { data: rows });
+      socket.emit('detail', { data: rows });
     });
   });
 

@@ -326,12 +326,12 @@ $(window).load(function() {
         var clickFunc = function(d, i){
             var questionId = d.srcElement.id.substr(6);
             console.log(questionId);
-            socket.emit("recAnswer", { data:  questionId});
+            socket.emit("reqAnswer", { data: questionId});
             socket.on('detail', function (data) {
                 console.log("get query data:");
                 console.log(data);
                 sessionStorage.setItem("data", JSON.stringify(data));
-//                window.location.href = "./sys-search-result.html";
+               window.location.href = "./sys-search-result.html";
             });
 
         };
