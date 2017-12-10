@@ -315,56 +315,34 @@ ga('send', 'pageview');
 //    <p class="like" id="">5 likes</p></td>
 //    </tr>
 $(window).load(function() {
-    // var data = [{
-    //     question_id: 123,
-    //     title: "haha",
-    //     body: "1234567891011121314151617181910",
-    //     create_date: "2011-11-11",
-    //     comment_count: 5,
-    //     tags: ["1","2","3"]
-    // },
-    //     {
-    //         question_id: 124,
-    //         title: "haha",
-    //         body: "1234567891011121314151617181910",
-    //         create_date: "2011-11-11",
-    //         comment_count: 5,
-    //         tags: ["1","2","3"]
-    //     },
-    //     {
-    //         question_id: 125,
-    //         title: "haha",
-    //         body: "1234567891011121314151617181910",
-    //         create_date: "2011-11-11",
-    //         comment_count: 5,
-    //         tags: ["1","2","3"]
-    //     }];
 
-   var data = JSON.parse(sessionStorage.data);
-   console.log("result get data: ");
-   console.log(data);
-
-    var tr = $("#first-item");
-    //change.
-    for(var i = 0; i < data.length; ++i)
-    {
-        tr.after("<tr class='tbl-item' id='tr-"+data[i].question_id+"'></tr>");
-        tr = $("#tr-"+data[i].question_id);
-        tr.append("<td class='img'><img src='vendors/jplist/html/img/thumbs/arch-1.jpg' alt='' title=''/></td>");
-        tr.append($("<td class='td-block' id='block-"+data[i].question_id+"' </td>"));
-        var td = $("#block-"+data[i].question_id);
-        td.last().append("<p class='date'>"+data[i].create_date+"</p>");
-        td.append("<p class='title' id='title-"+data[i].question_id+"'>"+data[i].title+" </p>");
-        var title = $("#title-"+data[i].question_id);
-        for(var j = 0; j < data[i].tags.length; ++j)
+    var promise = new Promise(function (resolve, reject) {
+        var data = JSON.parse(sessionStorage.data);
+        console.log("result get data: ");
+        console.log(data);
+        resolve(data);
+    });
+    promise.then(function (data) {
+        var tr = $("#first-item");
+        //change.
+        for(var i = 0; i < data.length; ++i)
         {
-            title.append("<span class='badge badge-default'>"+data[i].tags[j]+"</span>");
+            tr.after("<tr class='tbl-item' id='tr-"+data[i].question_id+"'></tr>");
+            tr = $("#tr-"+data[i].question_id);
+            tr.append("<td class='img'><img src='vendors/jplist/html/img/thumbs/arch-1.jpg' alt='' title=''/></td>");
+            tr.append($("<td class='td-block' id='block-"+data[i].question_id+"' </td>"));
+            var td = $("#block-"+data[i].question_id);
+            td.last().append("<p class='date'>"+data[i].create_date+"</p>");
+            td.append("<p class='title' id='title-"+data[i].question_id+"'>"+data[i].title+" </p>");
+            var title = $("#title-"+data[i].question_id);
+            for(var j = 0; j < data[i].tags.length; ++j)
+            {
+                title.append("<span class='badge badge-default'>"+data[i].tags[j]+"</span>");
+            }
+            td.append("<p class='desc'>"+data[i].body+"</p>");
+            td.append("<p class='like' id=''>"+data[i].comment_count+" comments</p></td>");
         }
-        td.append("<p class='desc'>"+data[i].body+"</p>");
-        td.append("<p class='like' id=''>"+data[i].comment_count+" comments</p></td>");
-    }
-
-//    var td = tr.append("<td></td>");
+    });
 });
 
 
