@@ -160,9 +160,17 @@ io.on('connection', function(socket){
               console.log('[LOGIN ERROR]login failed');
               return;
             }
-            cosole.log('-----------USER LOGIN CHECK-----------');
-            console.log('USER LOGIN: SUCCESS');
-          });
+            if(result){
+              console.log('-----------USER LOGIN CHECK-----------');
+              console.log('USER LOGIN: SUCCESS');
+              socket.emit('login',{result : true});
+            }
+            else{
+              console.log('-----------USER LOGIN CHECK-----------');
+              console.log('USER LOGIN: FAILED');
+              socket.emit('login', {result : false;});
+            }
+        });
     }
     // connection.query('SELECT * from question', function (err, rows, fields) {
     //   if (err) throw err;
