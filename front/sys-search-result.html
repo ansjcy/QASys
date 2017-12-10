@@ -317,16 +317,20 @@ ga('send', 'pageview');
 $(window).load(function() {
 
     var promise = new Promise(function (resolve, reject) {
-        var data = JSON.parse(sessionStorage.data);
+        var data = JSON.parse(localStorage.data);
         console.log("result get data: ");
         console.log(data);
         resolve(data);
     });
     promise.then(function (data) {
+      console.log(data);
         var tr = $("#first-item");
+        console.log(tr);
         //change.
+        console.log(data.length);
         for(var i = 0; i < data.length; ++i)
         {
+          console.log(i);
             tr.after("<tr class='tbl-item' id='tr-"+data[i].question_id+"'></tr>");
             tr = $("#tr-"+data[i].question_id);
             tr.append("<td class='img'><img src='vendors/jplist/html/img/thumbs/arch-1.jpg' alt='' title=''/></td>");

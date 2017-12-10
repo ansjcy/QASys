@@ -257,52 +257,9 @@
         socket.on('result', function (data) {
             console.log("get query data:");
             console.log(data);
-            sessionStorage.setItem("data", JSON.stringify(data));
+            localStorage.setItem("data", JSON.stringify(data.data));
             window.location.href = "./sys-search-result.html";
         });
-
-
-        var data = [
-            {
-                answer_count: 1,
-                asker_id: 1139,
-                body: "I am a programmer I like coffee as it keeps me awake, I usually drink 4 small cups a dayI want to know if it is dangerous for your health? Or in which quantity it should be taken?",
-                comment_count: 3,
-                create_date: "2011-07-30T16:16:53.000Z",
-                question_id: 3088,
-                question_tag_id: 1637,
-                status: 1,
-                tag_name: "nutrition",
-                tags: ["nutrition"],
-                title: "Is coffee good or bad for your health?",
-                view_count: 1414
-            },
-            {
-                question_id: 123,
-                title: "haha",
-                body: "1234567891011121314151617181910",
-                create_date: "2011-11-11",
-                comment_count: 5,
-                tags: ["1","2","3"]
-            },
-            {
-                question_id: 124,
-                title: "haha",
-                body: "1234567891011121314151617181910",
-                create_date: "2011-11-11",
-                comment_count: 5,
-                tags: ["1","2","3"]
-            },
-            {
-                question_id: 125,
-                title: "haha",
-                body: "1234567891011121314151617181910",
-                create_date: "2011-11-11",
-                comment_count: 5,
-                tags: ["1","2","3"]
-            }];
-        sessionStorage.setItem("data", JSON.stringify(data));
-        window.location.href = "./sys-search-result.html";
     }
 </script>
 </body>
