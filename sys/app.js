@@ -75,9 +75,9 @@ console.log("start to listen on socket..");
 io.on('connection', function(socket){
   console.log('a user connected');
 
-  socket.on('reqData', function (data) {
+  socket.on('reqData', function (DATA) {
     //load data from database
-    console.log(data);
+    console.log(DATA);
 
     //data(string):
     //    question -> question title,
@@ -88,38 +88,40 @@ io.on('connection', function(socket){
     //        data:rows
     //        getby rows[i].field_name
 
-
-    if(data.community != undefined){
-      var querybody = 'select * from question natrual join QuestionTag natural join person natural join community where title like \'%'
+    var data = DATA.data;
+    if(data.community.length != 0){
+      var querybody = 'select distinct * from question, QuestionTag, persons, community where question.question_id = QuestionTag.question_id and persons.person_id = question.asker_id and persons.community = community.community_id and title like \'%'
                   + data.question + '%\' and community = \'' + data.community + '\'';
 
-      if (data.tag != undefined){
+      if (data.tag.length != 0){
         querybody += 'and tag_name = \'' + data.tag + '\'';
       }
 
-      if(data.date != undefined){
+      if(data.date.length != 0){
         querybody += 'and create_date <= \'' + data.date + '\''
       }
 
       connection.query(querybody, function(err, rows, fields){
         if (err) throw err;
+        console.log('hellos');
           socket.emit('result', { data: rows });
       });
     }
 
     else{
-      var querybody = 'select * from question natual join QuestionTag where title like \'%' + data.question +'%\'';
+      var querybody = 'select distinct * from question, QuestionTag where question.question_id = QuestionTag.question_id and title like \'%' + data.question +'%\'';
 
-      if (data.tag != undefined){
+      if (data.tag.length != 0){
         querybody += 'and tag_name = \'' + data.tag + '\''
       }
 
-      if (data.date != undefined){
+      if (data.date.length != 0){
         querybody += 'and create_date <= \'' + data.date + '\''
       }
-
+      console.log(querybody);
       connection.query(querybody, function(err, rows, fields){
         if (err) throw err;
+        console.log(rows.length);
           socket.emit('result', { data: rows });
       });
     }
@@ -152,7 +154,7 @@ io.on('connection', function(socket){
     //        data:rows
     //        getby rows[i].field_name
 
-    else if(data.type === 'transaction_update'){
+    if(data.type === 'transaction_update'){
           connection.query('update User set balance = ' + data.after_balance + ' where user_id = ' + data.user_id, function(err, result){
             if(err) {
               console.log('[UPDATE ERROR]update transaction failed:'+err.message);

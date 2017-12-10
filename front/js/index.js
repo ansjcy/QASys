@@ -9,7 +9,7 @@ $(function () {
         //console.log("load window in here and emit request");
 
         var socket = io.connect("http://localhost:1234");
-        socket.emit("reqData", { my: 'data' });
+        socket.emit("aa", { my: 'data' });
         socket.on('getData', function (data) {
            console.log(data);
            //socket.emit('my other event', { my: 'data' });

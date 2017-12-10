@@ -149,7 +149,7 @@
                                             <div class="panel-heading">Search your question and answers</div>
                                             <div class="panel-body pan">
                                                 <!--<form action="./sys-search-result.html" class="form-horizontal form-seperated form-row-stripped">-->
-                                                <form action="" class="form-horizontal form-seperated form-row-stripped">
+                                                <!-- <form action="" class="form-horizontal form-seperated form-row-stripped"> -->
                                                     <div class="form-body">
                                                         <div class="form-group"><label for="searchKeyWord" class="col-md-3 control-label">Key word</label>
 
@@ -187,7 +187,7 @@
                                                         &nbsp;
                                                         <button type="button" class="btn btn-green">Cancel</button>
                                                     </div>
-                                                </form>
+                                                <!-- </form> -->
                                             </div>
                                         </div>
                                     </div>
@@ -229,7 +229,10 @@
 <!--CORE JAVASCRIPT-->
 <script src="js/main.js"></script>
 <script>
+    console.log("here");
+    var socket = io.connect("http://localhost:1234");
     var func = function (d, i) {
+      console.log("clicked");
         var keyword = document.getElementById("searchKeyWord").value;
         var category = document.getElementById("searchTag").value;
         var inputDay = document.getElementById("inputDay").value;
@@ -238,23 +241,30 @@
 
         var communityOp = document.getElementById("selectCommunity");
         var community = communityOp.options[communityOp.selectedIndex].value;
+        if (inputYear === ''){
+          date = '';
+        }
+        else{
+          date = inputYear+"-"+inputMonth+"-"+inputDay;
+        }
         var params = {
             question: keyword,
             tag: category,
-            date: inputYear+"-"+inputMonth+"-"+inputDay,
+            date: date,
             community: community
         };
 
-        console.log("here");
-        var socket = io.connect("http://localhost:1234");
+
         socket.emit("reqData", { data: params });
-        socket.on('getData', function (data) {
-            console.log(data[0]);
+        socket.on('result', function (data) {
+            console.log("got!!!");
+            console.log(data);
+            sessionStorage.setItem("params", JSON.stringify(data));
             //socket.emit('my other event', { my: 'data' });
         });
 
 
-        sessionStorage.setItem("params", JSON.stringify(params));
+        // sessionStorage.setItem("params", JSON.stringify(params));
 
 
     }
