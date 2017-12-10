@@ -209,7 +209,7 @@
                                                 <!--<data></data>-->
                                                 <td class="td-block"><p class="date">03/15/2012</p>
 
-                                                    <p class="title">Arch</p>
+                                                    <p class="title" id="aaaa">Arch</p>
 
                                                     <p class="desc">An arch is a structure that spans a space and supports a load. Arches appeared as early as the 2nd millennium BC in Mesopotamian brick architecture and their systematic use started with the Ancient Romans who were the first to apply the technique to a wide range of structures.</p>
 
@@ -711,6 +711,17 @@ ga('send', 'pageview');
 <script>
     var params = JSON.parse(sessionStorage.params);
     console.log(params);
+
+    var clickFunc = function(d, i){
+        console.log(d.srcElement.id);
+        window.location.href = "./sys-search-result-detail.html";
+    };
+    var ps = document.getElementsByClassName("title");
+    for(var i = 0; i < ps.length; ++i)
+    {
+        ps[i].onclick = clickFunc;
+    }
+
 </script>
 </body>
 </html>
