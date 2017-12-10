@@ -248,7 +248,7 @@
         var socket = io.connect("http://localhost:1234");
         socket.emit("reqData", { data: params });
         socket.on('getData', function (data) {
-            console.log(data);
+            console.log(data[0]);
             //socket.emit('my other event', { my: 'data' });
         });
 

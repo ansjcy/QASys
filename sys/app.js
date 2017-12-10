@@ -79,18 +79,48 @@ io.on('connection', function(socket){
     //load data from database
     console.log(data);
 
-    //data.type: question, tag, date, answer (string)
-    //data.content: question -> question title,
-    //              tag -> tagname
-    //              answer -> question_id(string)
+    //data(string):
+    //    question -> question title,
+    //    tag -> tagname
+    //    date -> yy-mm-dd
+    //    community -> community
     //returns:
     //        data:rows
     //        getby rows[i].field_name
 
-    if(data.type === 'question'){
-      connection.query('select * from question where title like %' + data.content + '%', function(err, rows, fields){
+
+    if(data.community != undefined){
+      var querybody = 'select * from question natrual join QuestionTag natural join person natural join community where title like \'%'
+                  + data.question + '%\' and community = \'' + data.community + '\'';
+
+      if (data.tag != undefined){
+        querybody += 'and tag_name = \'' + data.tag + '\'';
+      }
+
+      if(data.date != undefined){
+        querybody += 'and create_date <= \'' + data.date + '\''
+      }
+
+      connection.query(querybody, function(err, rows, fields){
         if (err) throw err;
-          socket.emit('question', { data: rows });
+          socket.emit('result', { data: rows });
+      });
+    }
+
+    else{
+      var querybody = 'select * from question natual join QuestionTag where title like \'%' + data.question +'%\'';
+
+      if (data.tag != undefined){
+        querybody += 'and tag_name = \'' + data.tag + '\''
+      }
+
+      if (data.date != undefined){
+        querybody += 'and create_date <= \'' + data.date + '\''
+      }
+
+      connection.query(querybody, function(err, rows, fields){
+        if (err) throw err;
+          socket.emit('result', { data: rows });
       });
     }
 
@@ -100,20 +130,20 @@ io.on('connection', function(socket){
     //           socket.emit('question', { data: rows });
     //       })
     // }
-
-    else if(data.type === 'tag'){
-          connection.query('select * from QuestionTag where tag_name = ' + data.content, function(err, rows, fields){
-            if (err) throw err;
-              socket.emit('tag', { data: rows });
-          });
-    }
-
-    else if(data.type === 'answer'){
-          connection.query('select * from answer where question_id = ' + data.content, function(err, rows, fields){
-            if (err) throw err;
-              socket.emit('answer', { data: rows });
-          });
-    }
+    //
+    // else if(data.type === 'tag'){
+    //       connection.query('select * from QuestionTag where tag_name = ' + data.content, function(err, rows, fields){
+    //         if (err) throw err;
+    //           socket.emit('tag', { data: rows });
+    //       });
+    // }
+    //
+    // else if(data.type === 'answer'){
+    //       connection.query('select * from answer where question_id = ' + data.content, function(err, rows, fields){
+    //         if (err) throw err;
+    //           socket.emit('answer', { data: rows });
+    //       });
+    // }
 
     //data.type: transaction
     //data:[user_id, amount, before_balance, after_balance]
@@ -121,6 +151,7 @@ io.on('connection', function(socket){
     //returns:
     //        data:rows
     //        getby rows[i].field_name
+
     else if(data.type === 'transaction_update'){
           connection.query('update User set balance = ' + data.after_balance + ' where user_id = ' + data.user_id, function(err, result){
             if(err) {
