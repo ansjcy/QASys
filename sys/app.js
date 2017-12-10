@@ -146,8 +146,22 @@ io.on('connection', function(socket){
     else if(data.type === 'transaction_query'){
           connection.query('select * from Transaction where user_id = ' + data.user_id, function(err, rows, field){
             if(err){
-              console.log('[QUERY ERROR]transaction que')
+              console.log('[QUERY ERROR]transaction query failed');
+              return;
             }
+            cosole.log('-----------QUERY TRANSACTION-----------');
+            console.log('QUERY: user_id:', data.user_id);
+            socket.emit('transaction_query', {data : rows});
+          });
+    }
+    else if(data.type === 'login'){
+          connection.query('select * from User where user_id = ' + data.user_id + ' and password =' + data.password, function(err, rows, field){
+            if(err){
+              console.log('[LOGIN ERROR]login failed');
+              return;
+            }
+            cosole.log('-----------USER LOGIN CHECK-----------');
+            console.log('USER LOGIN: SUCCESS');
           });
     }
     // connection.query('SELECT * from question', function (err, rows, fields) {
