@@ -79,7 +79,7 @@ io.on('connection', function(socket){
     //load data from database
     console.log(data);
 
-    //data.type: question, tag, answer (string)
+    //data.type: question, tag, date, answer (string)
     //data.content: question -> question title,
     //              tag -> tagname
     //              answer -> question_id(string)
