@@ -148,8 +148,13 @@
                                         <div class="panel panel-violet">
                                             <div class="panel-heading">Search your question and answers</div>
                                             <div class="panel-body pan">
+<<<<<<< Updated upstream
                                                 <!--<form action="./sys-search-result.html" class="form-horizontal form-seperated form-row-stripped">-->
                                                 <!-- <form action="" class="form-horizontal form-seperated form-row-stripped"> -->
+=======
+                                                <form action="./sys-search-result.html" class="form-horizontal form-seperated form-row-stripped">
+                                                <!--<form action="" class="form-horizontal form-seperated form-row-stripped">-->
+>>>>>>> Stashed changes
                                                     <div class="form-body">
                                                         <div class="form-group"><label for="searchKeyWord" class="col-md-3 control-label">Key word</label>
 
@@ -182,10 +187,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-actions text-right pal">
-                                                        <button class="btn btn-primary" onclick="func()">Submit</button>
+                                                        <!--<button class="btn btn-green" onclick="func()">Submit</button>-->
                                                         <!--<button type="submit" class="btn btn-primary" onclick="func()">Submit</button>-->
-                                                        &nbsp;
-                                                        <button type="button" class="btn btn-green">Cancel</button>
+                                                        <button type="button" class="btn btn-green" onclick="func()">Search!</button>
                                                     </div>
                                                 <!-- </form> -->
                                             </div>
@@ -254,19 +258,13 @@
             community: community
         };
 
-
         socket.emit("reqData", { data: params });
-        socket.on('result', function (data) {
-            console.log("got!!!");
+        socket.on('getData', function (data) {
+            console.log("get query data:");
             console.log(data);
-            sessionStorage.setItem("params", JSON.stringify(data));
-            //socket.emit('my other event', { my: 'data' });
+            sessionStorage.setItem("data", JSON.stringify(data));
+            window.location.href = "./sys-search-result.html";
         });
-
-
-        // sessionStorage.setItem("params", JSON.stringify(params));
-
-
     }
 </script>
 </body>
