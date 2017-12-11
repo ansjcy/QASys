@@ -237,12 +237,20 @@
             if(data.state == true)
             {
                 $("#balance-value").html(data.data);
+                localStorage.setItem("balance", data.data);
                 window.alert("add balance succeed!");
             }
         });
     };
     $(window).load(function(){
         $(".username-class").html(localStorage.username);
+        socket.emit("get_balance", { data: {user_id: username} });
+        socket.on('get_balance_result', function (data) {
+            console.log("get query data:");
+            console.log(data);
+            $("#balance-value").html(data.data);
+            localStorage.setItem("balance", data.data);
+        });
     });
 
 
