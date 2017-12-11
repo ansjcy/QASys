@@ -304,19 +304,21 @@ socket.on('add_balance', function(DATA) {
   console.log(DATA);
   data = DATA.data;
   querybody = 'select * from user where user_id = \'' + data.user_id + '\'';
+  console.log(querybody);
   connection.query(querybody, function(err, rows, field) {
     if (err) throw err;
 
-    console.log(rows);
     var newbalance = rows[0].balance + data.amount;
-    updatebody = 'update user set balance = \'' + newbalance + ' where user_id =\'' + data.user_id + '\'';
+    updatebody = 'update user set balance = ' + newbalance + ' where user_id = \'' + data.user_id + '\'';
+    console.log(updatebody);
     connection.query(updatebody, function(err, result) {
       if (err) throw err;
+      console.log(newbalance);
       if (result) {
-        socket.emit('result', {state:true, data:newbalance});
+        socket.emit('add_balance_result', {state:true, data:newbalance});
       }
       else {
-        socket.emit('result', {state:false, data:newbalance});
+        socket.emit('add_balance_result', {state:false, data:newbalance});
       }
     });
   });
