@@ -219,7 +219,8 @@ io.on('connection', function(socket){
     */
     var data = DATA.data;
     var querybody = 'insert into user values(\'' + data.user_id + '\', \'' + data.firstname + ' ' + data.lastname + '\',\''
-    + data.password + ', 0, \'' + data.email + '\', \'' + data.gender + '\')';
+    + data.password + '\', 0, \'' + data.email + '\', \'' + data.gender + '\')';
+    console.log(querybody);
     connection.query(querybody, function(err, result) {
       if (err) throw err;
       if (result){
