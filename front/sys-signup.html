@@ -74,6 +74,7 @@
 <script src="js/extra-signup.js"></script>
 <script src="vendors/iCheck/icheck.min.js"></script>
 <script src="vendors/iCheck/custom.min.js"></script>
+<script src="bower_components/socket.io-client/dist/socket.io.js"></script>
 <script>//BEGIN CHECKBOX & RADIO
 $('input[type="checkbox"]').iCheck({
     checkboxClass: 'icheckbox_minimal-grey',
@@ -91,7 +92,7 @@ $('input[type="radio"]').iCheck({
         var username = document.getElementById("username").value;
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
-        var re_password = document.getElementById("re_assword").value;
+        var re_password = document.getElementById("re_password").value;
         var firstName = document.getElementById("firstName").value;
         var lastName = document.getElementById("lastName").value;
         var genderOp = document.getElementById("gender");

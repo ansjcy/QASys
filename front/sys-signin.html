@@ -29,10 +29,10 @@
                 <div class="col-md-4"><a href="#" class="btn btn-sm btn-google-plus btn-block"><i class="fa fa-google-plus fa-fw"></i>Google Plus</a></div>
             </div>
             <div class="form-group">
-                <div class="input-icon right"><i class="fa fa-user"></i><input type="text" placeholder="Username" name="username" class="form-control"></div>
+                <div class="input-icon right"><i class="fa fa-user"></i><input type="text" placeholder="Username" name="username" class="form-control" id="username"></div>
             </div>
             <div class="form-group">
-                <div class="input-icon right"><i class="fa fa-key"></i><input type="password" placeholder="Password" name="password" class="form-control"></div>
+                <div class="input-icon right"><i class="fa fa-key"></i><input type="password" placeholder="Password" name="password" class="form-control" id="password"></div>
             </div>
             <div class="form-group pull-left">
                 <div class="checkbox-list"><label><input type="checkbox">&nbsp;
@@ -59,6 +59,7 @@
 <script src="js/respond.min.js"></script>
 <script src="vendors/iCheck/icheck.min.js"></script>
 <script src="vendors/iCheck/custom.min.js"></script>
+<script src="bower_components/socket.io-client/dist/socket.io.js"></script>
 <script>//BEGIN CHECKBOX & RADIO
 $('input[type="checkbox"]').iCheck({
     checkboxClass: 'icheckbox_minimal-grey',
@@ -70,7 +71,30 @@ $('input[type="radio"]').iCheck({
 });
 //END CHECKBOX & RADIO</script>
 <script>
-    $(window).load
+
+    var socket = io.connect("http://localhost:1234");
+    var func = function(d, i){
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        if(username.length == 0 || password.length == 0)
+            window.alert("field cannot be empty!");
+        else
+        {
+            socket.emit("login", { data:  params});
+            socket.on('login_back', function (data) {
+                console.log("get login data:");
+                console.log(data);
+                if(data.result == "true")
+                    window.location.href = "./sys-index.html";
+                else
+                {
+                    window.alert("login failed!");
+                }
+            });
+        }
+
+    }
+
 
 </script>
 </body>
