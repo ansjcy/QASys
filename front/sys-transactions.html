@@ -212,8 +212,8 @@
     $(window).load(function(){
         $(".username-class").html(localStorage.username);
 
-        socket.emit("getTrans", { data:  {user_id:username, password:password}});
-        socket.on('trans_back', function (data) {
+        socket.emit("get_history", { data:  {user_id:username, password:password}});
+        socket.on('get_history_result', function (data) {
             console.log("get data:");
             console.log(data);
             var res = data.data;
