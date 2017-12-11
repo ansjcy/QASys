@@ -229,14 +229,14 @@
     var socket = io.connect("http://localhost:1234");
     var func = function(){
         var amount = parseInt(document.getElementById("inputAmount"));
-        var addedAmount = parseInt(document.getElementById("balance-value")) + amount;
-        socket.emit("addBalance", { data: amount });
+        var username = localStorage.username;
+        socket.emit("add_balance", { data: {amount:amount, user_id: username} });
         socket.on('addBalance_result', function (data) {
             console.log("get query data:");
             console.log(data);
             if(data.state == true)
             {
-                $("#balance-value").html(addedAmount);
+                $("#balance-value").html(data.data);
                 window.alert("add balance succeed!");
             }
         });
