@@ -184,57 +184,7 @@ io.on('connection', function(socket){
     //        data:rows
     //        getby rows[i].field_name
 
-    if(data.type === 'transaction_update'){
-          connection.query('update User set balance = ' + data.after_balance + ' where user_id = ' + data.user_id, function(err, result){
-            if(err) {
-              console.log('[UPDATE ERROR]update transaction failed:'+err.message);
-              socket.emit('result',{result:false});
-              return;
-            }
-            console.log('-----------UPDATE BALENCE------------');
-            console.log('Update affectedRows',result.affectedRows);
-            socket.emit('result', {result:true});
-          });
-          connection.query('insert into transaction(user_id, amount, before_balance, after_balance) values(?,?,?,?)',[data.user_id, data.amount, data.before_balance, data.after_balance], function(err, result){
-            if(err){
-              console.log('[INSERT ERROR]insert transaction record failed:' + err.message);
-              socket.emit('result', {result:false});
-              return;
-            }
-            cosole.log('-----------INSERT BALENCE RECORD-----------');
-            console.log('Insert:',result);
-            socket.emit('result', {result:true});
-          });
-    }
-    else if(data.type === 'transaction_query'){
-          connection.query('select * from Transaction where user_id = ' + data.user_id, function(err, rows, field){
-            if(err){
-              console.log('[QUERY ERROR]transaction query failed');
-              return;
-            }
-            cosole.log('-----------QUERY TRANSACTION-----------');
-            console.log('QUERY: user_id:', data.user_id);
-            socket.emit('transaction_query', {data : rows});
-          });
-    }
-    else if(data.type === 'login'){
-          connection.query('select * from User where user_id = ' + data.user_id + ' and password =' + data.password, function(err, rows, field){
-            if(err){
-              console.log('[LOGIN ERROR]login failed');
-              return;
-            }
-            if(result){
-              console.log('-----------USER LOGIN CHECK-----------');
-              console.log('USER LOGIN: SUCCESS');
-              socket.emit('login',{result : true});
-            }
-            else{
-              console.log('-----------USER LOGIN CHECK-----------');
-              console.log('USER LOGIN: FAILED');
-              socket.emit('login', {result : false});
-            }
-        });
-    }
+
     // connection.query('SELECT * from question', function (err, rows, fields) {
     //   if (err) throw err;
     //   //console.log('The solution is: ', rows[0].question_id, rows[1].question_id);
@@ -254,6 +204,92 @@ io.on('connection', function(socket){
       socket.emit('detail', { data: rows });
     });
   });
+
+  socket.on('register', function(DATA) {
+    console.log(DATA);
+    /*
+      data{
+        user_id,
+        email,
+        password,
+        firstname,
+        lastname,
+        gender
+      }
+    */
+    var data = DATA.data;
+    var querybody = 'insert into user values(\'' + data.user_id + '\', \'' + data.firstname + ' ' + data.lastname + '\',\''
+    + data.password + ', 0, \'' + data.email + '\', \'' + data.gender + '\')';
+    connection.query(querybody, function(err, result) {
+      if (err) throw err;
+      if (result){
+        socket.emit('register_back', {result: true});
+      }
+      else {
+        socket.emit('register_back', {result: false});
+      }
+    });
+  });
+
+  socket.on('login', function (DATA) {
+    /*
+      data{
+        user_id,
+        password
+      }
+    */
+    console.log(DATA);
+
+    connection.query('select * from User where user_id = ' + data.user_id + ' and password =' + data.password, function(err, rows, field){
+      if(err) throw err;
+      if(rows.length >= 1){
+        console.log('-----------USER LOGIN CHECK-----------');
+        console.log('USER LOGIN: SUCCESS');
+        socket.emit('login_back',{result : true});
+      }
+      else{
+        console.log('-----------USER LOGIN CHECK-----------');
+        console.log('USER LOGIN: FAILED');
+        socket.emit('login_back', {result : false});
+      }
+  });
+});
+
+    // if(data.type === 'transaction_update'){
+    //       connection.query('update User set balance = ' + data.after_balance + ' where user_id = ' + data.user_id, function(err, result){
+    //         if(err) {
+    //           console.log('[UPDATE ERROR]update transaction failed:'+err.message);
+    //           socket.emit('result',{result:false});
+    //           return;
+    //         }
+    //         console.log('-----------UPDATE BALENCE------------');
+    //         console.log('Update affectedRows',result.affectedRows);
+    //         socket.emit('result', {result:true});
+    //       });
+    //       connection.query('insert into transaction(user_id, amount, before_balance, after_balance) values(?,?,?,?)',[data.user_id, data.amount, data.before_balance, data.after_balance], function(err, result){
+    //         if(err){
+    //           console.log('[INSERT ERROR]insert transaction record failed:' + err.message);
+    //           socket.emit('result', {result:false});
+    //           return;
+    //         }
+    //         cosole.log('-----------INSERT BALENCE RECORD-----------');
+    //         console.log('Insert:',result);
+    //         socket.emit('result', {result:true});
+    //       });
+    // }
+    // else if(data.type === 'transaction_query'){
+    //       connection.query('select * from Transaction where user_id = ' + data.user_id, function(err, rows, field){
+    //         if(err){
+    //           console.log('[QUERY ERROR]transaction query failed');
+    //           return;
+    //         }
+    //         cosole.log('-----------QUERY TRANSACTION-----------');
+    //         console.log('QUERY: user_id:', data.user_id);
+    //         socket.emit('transaction_query', {data : rows});
+    //       });
+    // }
+
+  //});
 
 });
 
