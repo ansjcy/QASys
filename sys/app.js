@@ -249,7 +249,7 @@ io.on('connection', function(socket){
       if(rows.length >= 1){
         console.log('-----------USER LOGIN CHECK-----------');
         console.log('USER LOGIN: SUCCESS');
-        socket.emit('login_back',{result : true, data: rows});
+        socket.emit('login_back',{result : true, data: rows[0]});
       }
       else{
         console.log('-----------USER LOGIN CHECK-----------');
