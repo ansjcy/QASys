@@ -23,23 +23,23 @@
         <div class="header-content"><h1>Register</h1></div>
         <div class="body-content">
             <div class="form-group">
-                <div class="input-icon right"><i class="fa fa-user"></i><input type="text" placeholder="Username" name="username" class="form-control"></div>
+                <div class="input-icon right"><i class="fa fa-user"></i><input type="text" placeholder="Username" name="username" class="form-control" id="username"></div>
             </div>
             <div class="form-group">
-                <div class="input-icon right"><i class="fa fa-envelope"></i><input type="email" placeholder="Email address" name="email" class="form-control"></div>
+                <div class="input-icon right"><i class="fa fa-envelope"></i><input type="email" placeholder="Email address" name="email" class="form-control" id="email"></div>
             </div>
             <div class="form-group">
                 <div class="input-icon right"><i class="fa fa-key"></i><input id="password" type="password" placeholder="Password" name="password" class="form-control"></div>
             </div>
             <div class="form-group">
-                <div class="input-icon right"><i class="fa fa-key"></i><input type="password" placeholder="Confirm Password" name="passwordConfirm" class="form-control"></div>
+                <div class="input-icon right"><i class="fa fa-key"></i><input id="re_password" type="password" placeholder="Confirm Password" name="passwordConfirm" class="form-control"></div>
             </div>
             <hr>
             <div style="margin-bottom: 15px" class="row">
-                <div class="col-lg-6"><label><input type="text" placeholder="First Name" name="firstname" class="form-control"></label></div>
-                <div class="col-lg-6"><label><input type="text" placeholder="Last Name" name="lastname" class="form-control"></label></div>
+                <div class="col-lg-6"><label><input type="text" placeholder="First Name" name="firstname" class="form-control" id="firstName"></label></div>
+                <div class="col-lg-6"><label><input type="text" placeholder="Last Name" name="lastname" class="form-control" id="lastName"></label></div>
             </div>
-            <div class="form-group"><label style="display: block" class="select"><select name="gender" class="form-control">
+            <div class="form-group"><label style="display: block" class="select"><select name="gender" class="form-control" id="gender">
                 <option value="0" selected disabled>Gender</option>
                 <option value="1">Male</option>
                 <option value="2">Female</option>
@@ -54,10 +54,10 @@
                     I agree with the Terms and Conditions</label></div>
             </div>
             <hr>
-            <div class="form-group mbn"><a href="extra-signin.html" class="btn btn-warning"><i class="fa fa-chevron-circle-left"></i>&nbsp;
-                Back</a>
-                <button type="submit" class="btn btn-info pull-right">Submit
-                    &nbsp;<i class="fa fa-chevron-circle-right"></i></button>
+            <div class="form-group mbn">
+                <div class="form-group pull-right">
+                    <button type="button" class="btn btn-green" onclick="func()">Log In <i class="fa fa-chevron-circle-right"></i></button>
+                </div>
             </div>
         </div>
     </form>
@@ -84,5 +84,54 @@ $('input[type="radio"]').iCheck({
     increaseArea: '20%' // optional
 });
 //END CHECKBOX & RADIO</script>
+<script>
+    var socket = io.connect("http://localhost:1234");
+    var func = function()
+    {
+        var username = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var re_password = document.getElementById("re_assword").value;
+        var firstName = document.getElementById("firstName").value;
+        var lastName = document.getElementById("lastName").value;
+        var genderOp = document.getElementById("gender");
+        var gender = genderOp.options[genderOp.selectedIndex].value;
+
+        if(username.length == 0 || email.length == 0 || password.length == 0 || re_password.length == 0 || firstName.length == 0 || lastName.length == 0 || gender == "Gender")
+        {
+            window.alert("field cannot be empty!");
+        }
+        else
+        {
+            if(password != re_password)
+                    window.alert("2 passwords are not the same!");
+            else
+            {
+                var params = {
+                    user_id: username,
+                    email: email,
+                    password: password,
+                    firstname: firstName,
+                    lastname: lastName,
+                    gender: gender
+                };
+                socket.emit("register", { data:  params});
+                socket.on('register_back', function (data) {
+                    console.log("get query data:");
+                    console.log(data);
+                    if(data.result == "true")
+                        window.location.href = "./sys-signup.html";
+                    else
+                    {
+                        window.alert("register failed, please change a username!");
+                    }
+                });
+            }
+        }
+    };
+$(window).load(function () {
+
+});
+</script>
 </body>
 </html>
