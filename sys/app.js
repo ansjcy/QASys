@@ -300,6 +300,28 @@ io.on('connection', function(socket){
   });
 });
 
+socket.on('add_balance', function(DATA) {
+  console.log(DATA);
+  data = DATA.data;
+  querybody = 'select * from user where user_id = \'' + data.user_id + '\'';
+  connection.query(querybody, function(err, rows, field) {
+    if (err) throw err;
+
+    console.log(rows);
+    var newbalance = rows[0].balance + data.amount;
+    updatebody = 'update user set balance = \'' + newbalance + ' where user_id =\'' + data.user_id + '\'';
+    connection.query(updatebody, function(err, result) {
+      if (err) throw err;
+      if (result) {
+        socket.emit('result', {state:true, data:newbalance});
+      }
+      else {
+        socket.emit('result', {state:false, data:newbalance});
+      }
+    });
+  });
+});
+
 
     // if(data.type === 'transaction_update'){
     //       connection.query('update User set balance = ' + data.after_balance + ' where user_id = ' + data.user_id, function(err, result){
