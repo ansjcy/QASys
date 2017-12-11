@@ -94,27 +94,44 @@ io.on('connection', function(socket){
 
     var data = DATA.data;
     if(data.community.length != 0){
-      var querybody = 'select distinct * from question, QuestionTag, persons, community where question.question_id = QuestionTag.question_id and persons.person_id = question.asker_id and persons.community = community.community_id and title like \'%'
-                  + data.question + '%\' and community.name = \'' + data.community + '\'';
-
-      if (data.tag.length != 0){
-        querybody += 'and tag_name = \'' + data.tag + '\'';
-      }
-
-      if(data.date.length != 0){
-        querybody += 'and create_date <= \'' + data.date + '\''
-      }
-
-      connection.query(querybody, function(err, rows, fields){
-        if (err) throw err;
-        console.log('hellos');
         checkbody = "select * from user where user_id = \'" + data.user_id + '\'';
         connection.query(checkbody, function(err, rows, fields) {
-          if (rows[0].balance <= 0){
+          balance = rows[0].balance;
+          if (balance <= 0){
             socket.emit("result", {state: false});
           }
           else {
-            updatebody = 'update User set balance = ' + data.balance - 1 + ' where user_id = ' + data.user_id;
+            var querybody = 'select distinct * from question, QuestionTag, persons, community where question.question_id = QuestionTag.question_id and persons.person_id = question.asker_id and persons.community = community.community_id and title like \'%'
+                        + data.question + '%\' and community.name = \'' + data.community + '\'';
+
+            if (data.tag.length != 0){
+              querybody += 'and tag_name = \'' + data.tag + '\'';
+            }
+
+            if(data.date.length != 0){
+              querybody += 'and create_date <= \'' + data.date + '\''
+            }
+
+            connection.query(querybody, function(err, rows, fields){
+              if (err) throw err;
+              console.log('hellos');
+
+              map = new hashmap();
+              for (var i=0; i<rows.length; i+=1){
+                if (!map.has(rows[i].question_id)){
+                  map[rows[i].question_id] = i;
+                  rows[i].tags = [rows[i].tagname];
+                }
+                else{
+                  map[rows[i].question_id].tags.push(rows[i].tag_name);
+                  array.splice(i, 1);
+                  i-=1;
+                }
+              }
+              socket.emit('result', { data: rows, state: true});
+            });
+
+            updatebody = 'update User set balance = ' + (data.balance - 1) + ' where user_id = ' + data.user_id;
             connection.query(updatebody, function(err, result){
               if (err) throw err;
             });
@@ -126,24 +143,9 @@ io.on('connection', function(socket){
             connection.query(insertbody, function(err, result) {
               if (err) throw err;
             });
-
-            map = new hashmap();
-            for (var i=0; i<rows.length; i+=1){
-              if (!map.has(rows[i].question_id)){
-                map[rows[i].question_id] = i;
-                rows[i].tags = [rows[i].tagname];
-              }
-              else{
-                map[rows[i].question_id].tags.push(rows[i].tag_name);
-                array.splice(i, 1);
-                i-=1;
-              }
-            }
-            socket.emit('result', { data: rows, state: true});
           }
         });
-      });
-    }
+      }
 
     else{
       // check balance
