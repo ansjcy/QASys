@@ -228,7 +228,7 @@
 
     var socket = io.connect("http://localhost:1234");
     var func = function(){
-        var amount = parseInt(document.getElementById("inputAmount"));
+        var amount = parseInt(document.getElementById("inputAmount").value);
         var username = localStorage.username;
         socket.emit("add_balance", { data: {amount:amount, user_id: username} });
         socket.on('addBalance_result', function (data) {
