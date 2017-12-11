@@ -231,7 +231,7 @@
         var amount = parseInt(document.getElementById("inputAmount").value);
         var username = localStorage.username;
         socket.emit("add_balance", { data: {amount:amount, user_id: username} });
-        socket.on('addBalance_result', function (data) {
+        socket.on('add_balance_result', function (data) {
             console.log("get query data:");
             console.log(data);
             if(data.state == true)
