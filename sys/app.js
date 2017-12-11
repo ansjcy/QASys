@@ -324,6 +324,16 @@ socket.on('add_balance', function(DATA) {
   });
 });
 
+socket.on('get_balance', function(DATA) {
+  console.log(DATA);
+  data = DATA.data;
+  querybody = 'select * from user where user_id = \'' + data.user_id + '\'';
+  console.log(querybody);
+  connection.query(querybody, function(err, rows, field) {
+    if (err) throw err;
+    socket.emit('get_balance_result', {data : rows[0].balance});
+  });
+});
 
     // if(data.type === 'transaction_update'){
     //       connection.query('update User set balance = ' + data.after_balance + ' where user_id = ' + data.user_id, function(err, result){
