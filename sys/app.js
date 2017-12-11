@@ -94,12 +94,19 @@ io.on('connection', function(socket){
 
     var data = DATA.data;
     if(data.community.length != 0){
+        var date = new Date();
+        var curdate = ""+date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
         checkbody = "select * from user where user_id = \'" + data.user_id + '\'';
         connection.query(checkbody, function(err, rows, fields) {
           balance = rows[0].balance;
           if (balance <= 0){
+            insertbody = 'insert into history(user_id, content, time, state) values(\'' + data.user_id + '\', \'' + data.question + '\', \'' + curdate + '\', 0)';
+            connection.query(insertbody, function(err, result) {
+              if (err) throw err;
+            });
             socket.emit("result", {state: false});
           }
+
           else {
             var querybody = 'select distinct * from question, QuestionTag, persons, community where question.question_id = QuestionTag.question_id and persons.person_id = question.asker_id and persons.community = community.community_id and title like \'%'
                         + data.question + '%\' and community.name = \'' + data.community + '\'';
@@ -139,7 +146,7 @@ io.on('connection', function(socket){
             //hid user_id content time
             var date = new Date();
             var curdate = ""+date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-            insertbody = 'insert into history(user_id, content, time) values(\'' + data.user_id + '\', \'' + data.question + '\', \'' + curdate + '\')';
+            insertbody = 'insert into history(user_id, content, time, state) values(\'' + data.user_id + '\', \'' + data.question + '\', \'' + curdate + '\', 1)';
             connection.query(insertbody, function(err, result) {
               if (err) throw err;
             });
@@ -152,9 +159,15 @@ io.on('connection', function(socket){
       balancebody = 'select * from user where user_id = \'' + data.user_id + '\'';
       console.log(balancebody);
       connection.query(balancebody, function(err, rows, field){
+        var date = new Date();
+        var curdate = ""+date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
         var balance = rows[0].balance;
         // balance <= 0
         if (balance <= 0){
+          insertbody = 'insert into history(user_id, content, time, state) values(\'' + data.user_id + '\', \'' + data.question + '\', \'' + curdate + '\', 0)';
+          connection.query(insertbody, function(err, result) {
+            if (err) throw err;
+          });
           socket.emit("result", {state: false});
         }
         // balance > 0
@@ -199,9 +212,8 @@ io.on('connection', function(socket){
 
             // update search history
             //hid user_id content time
-            var date = new Date();
-            var curdate = ""+date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-            insertbody = 'insert into history(user_id, content, time) values(\'' + data.user_id + '\', \'' + data.question + '\', \'' + curdate + '\')';
+            insertbody = 'insert into history(user_id, content, time, state) values(\'' + data.user_id + '\', \'' + data.question + '\', \'' + curdate + '\', 1)';
+            console.log(insertbody);
             connection.query(insertbody, function(err, result) {
               if (err) throw err;
             });
