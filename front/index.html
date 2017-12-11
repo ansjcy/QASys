@@ -61,7 +61,7 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/avatar/profile.jpeg" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs">Chenyang</span>&nbsp;<span class="caret"></span></a>
+                    <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/avatar/profile.jpeg" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs username-class">Chenyang</span>&nbsp;<span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-user pull-right">
                             <li><a href="sys-profile.html"><i class="fa fa-user"></i>My Profile</a></li>
                             <li><a href="sys-transactions.html"><i class="fa fa-tasks"></i>My Transactions<span class="badge badge-success">7</span></a></li>
@@ -91,7 +91,7 @@
                 <ul id="side-menu" class="nav">
                     <li class="user-panel">
                         <div class="thumb"><img src="images/avatar/profile.jpeg" alt="" class="img-circle"/></div>
-                        <div class="info"><p>Chenyang</p>
+                        <div class="info"><p class="username-class">Chenyang</p>
                             <ul class="list-inline list-unstyled">
                                 <li><a href="sys-profile.html" data-hover="tooltip" title="Profile"><i class="fa fa-user"></i></a></li>
                                 <li><a href="sys-transactions.html" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modal-config"><i class="fa fa-cog"></i></a></li>
@@ -245,5 +245,10 @@
 <script src="js/index.js"></script>
 <!--CORE JAVASCRIPT-->
 <script src="js/main.js"></script>
+<script>
+    $(window).load(function(){
+        $(".username-class").html(localStorage.username);
+    });
+</script>
 </body>
 </html>

@@ -19,8 +19,8 @@
 <body id="lock-screen-page">
 <div class="page-form">
     <div class="body-content">
-        <div id="lock-screen-avatar"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg" alt="" class="img-responsive img-circle"></div>
-        <div id="lock-screen-info"><h1>John Doe</h1>
+        <div id="lock-screen-avatar"><img src="images/avatar/profile.jpeg" alt="" class="img-responsive img-circle"></div>
+        <div id="lock-screen-info"><h1 class="username-class">Chenyang</h1>
 
             <div class="email">example@email.com</div>
             <form action="index.html" class="mtl mbl">
@@ -49,6 +49,11 @@ $('input[type="radio"]').iCheck({
     increaseArea: '20%' // optional
 });
 //END CHECKBOX & RADIO
+</script>
+<script>
+    $(window).load(function(){
+        $(".username-class").html(localStorage.username);
+    });
 </script>
 </body>
 </html>

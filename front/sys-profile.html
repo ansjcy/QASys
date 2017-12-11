@@ -61,7 +61,7 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/avatar/profile.jpeg" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs">Chenyang</span>&nbsp;<span class="caret"></span></a>
+                    <li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/avatar/profile.jpeg" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs username-class">Chenyang</span>&nbsp;<span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-user pull-right">
                             <li><a href="sys-profile.html"><i class="fa fa-user"></i>My Profile</a></li>
                             <li><a href="sys-transactions.html"><i class="fa fa-tasks"></i>My Transactions<span class="badge badge-success">7</span></a></li>
@@ -91,7 +91,7 @@
                 <ul id="side-menu" class="nav">
                     <li class="user-panel">
                         <div class="thumb"><img src="images/avatar/profile.jpeg" alt="" class="img-circle"/></div>
-                        <div class="info"><p>Chenyang</p>
+                        <div class="info"><p class="username-class">Chenyang</p>
                             <ul class="list-inline list-unstyled">
                                 <li><a href="sys-profile.html" data-hover="tooltip" title="Profile"><i class="fa fa-user"></i></a></li>
                                 <li><a href="sys-transactions.html" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modal-config"><i class="fa fa-cog"></i></a></li>
@@ -149,7 +149,7 @@
             <!--END TITLE & BREADCRUMB PAGE--><!--BEGIN CONTENT-->
             <div class="page-content">
                 <div class="row">
-                    <div class="col-md-30"><h2>Profile: Chenyang Ji</h2>
+                    <div class="col-md-30"><h2 class="username-class">Chenyang Ji</h2>
 
                         <div class="row mtl">
                             <div class="col-md-3">
@@ -162,10 +162,10 @@
                                     <tbody>
                                     <tr>
                                         <td>User Name</td>
-                                        <td>Chenyang Ji</td>
+                                        <td class="username-class">Chenyang Ji</td>
                                     </tr>
                                     <tr>
-                                        <td>Email</td>
+                                        <td id="email">Email</td>
                                         <td>name@example.com</td>
                                     </tr>
                                     <tr>
@@ -181,8 +181,12 @@
                                         <td><i class="fa fa-star text-yellow fa-fw"></i><i class="fa fa-star text-yellow fa-fw"></i><i class="fa fa-star text-yellow fa-fw"></i><i class="fa fa-star text-yellow fa-fw"></i><i class="fa fa-star text-yellow fa-fw"></i></td>
                                     </tr>
                                     <tr>
-                                        <td>Member Since</td>
-                                        <td> Dec 03, 2017</td>
+                                        <td>Gender</td>
+                                        <td id="gender">male</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Balance</td>
+                                        <td id="balance">10</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -222,5 +226,13 @@
 <script src="bower_components/socket.io-client/dist/socket.io.js"></script>
 <!--CORE JAVASCRIPT-->
 <script src="js/main.js"></script>
+<script>
+    $(window).load(function () {
+        $(".username-class").html(localStorage.username);
+        $("#email").html(localStorage.email);
+        $("#gender").html(localStorage.gender);
+        $("#balance").html(localStorage.balance);
+    });
+</script>
 </body>
 </html>

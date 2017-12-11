@@ -85,7 +85,15 @@ $('input[type="radio"]').iCheck({
                 console.log("get login data:");
                 console.log(data);
                 if(data.result == true)
+                {
+                    localStorage.setItem("username", username);
+                    localStorage.setItem("password", password);
+                    localStorage.setItem("email", data.data.email);
+                    localStorage.setItem("name", data.data.name);
+                    localStorage.setItem("gender", data.data.gender);
+                    localStorage.setItem("balance", data.data.balance);
                     window.location.href = "./index.html";
+                }
                 else
                 {
                     window.alert("login failed!");
