@@ -250,6 +250,7 @@
           date = inputYear+"-"+inputMonth+"-"+inputDay;
         }
         var params = {
+            user_id: localStorage.username,
             question: keyword,
             tag: category,
             date: date,
@@ -260,8 +261,15 @@
         socket.on('result', function (data) {
             console.log("get query data:");
             console.log(data);
-            localStorage.setItem("data", JSON.stringify(data.data));
-            window.location.href = "./sys-search-result.html";
+            if(data.state == false)
+            {
+                window.alert("No enough balance, please add your balance!");
+            }
+            else
+            {
+                localStorage.setItem("data", JSON.stringify(data.data));
+                window.location.href = "./sys-search-result.html";
+            }
         });
 //        var data = [
 //            {
