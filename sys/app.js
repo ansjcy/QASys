@@ -146,53 +146,65 @@ io.on('connection', function(socket){
     }
 
     else{
-      var querybody = 'select distinct * from question, QuestionTag where question.question_id = QuestionTag.question_id and title like \'%' + data.question +'%\'';
-
-      if (data.tag.length != 0){
-        querybody += 'and tag_name = \'' + data.tag + '\''
-      }
-
-      if (data.date.length != 0){
-        querybody += 'and create_date <= \'' + data.date + '\''
-      }
-
-      console.log(querybody);
-      connection.query(querybody, function(err, rows, fields){
-        if (err) throw err;
-        console.log(rows.length);
-
-        if (rows[0].balance <= 0){
+      // check balance
+      balancebody = 'select * from user where user_id = \'' + data.user_id + '\'';
+      console.log(balancebody);
+      connection.query(balancebody, function(err, rows, field){
+        var balance = rows[0].balance;
+        // balance <= 0
+        if (balance <= 0){
           socket.emit("result", {state: false});
         }
-
+        // balance > 0
         else{
-          updatebody = 'update User set balance = ' + data.balance - 1 + ' where user_id = ' + data.user_id;
-          connection.query(updatebody, function(err, result){
-            if (err) throw err;
-          });
 
-          //hid user_id content time
-          var date = new Date();
-          var curdate = ""+date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-          insertbody = 'insert into history(user_id, content, time) values(\'' + data.user_id + '\', \'' + data.question + '\', \'' + curdate + '\')';
-          connection.query(insertbody, function(err, result) {
-            if (err) throw err;
-          });
+          var querybody = 'select distinct * from question, QuestionTag where question.question_id = QuestionTag.question_id and title like \'%' + data.question +'%\'';
 
-          map = new hashmap();
-          for (var i=0; i<rows.length; i+=1){
-            if (!map.has(rows[i].question_id)){
-              map.set(rows[i].question_id, i);
-              rows[i].tags = [];
-              rows[i].tags.push(rows[i].tag_name)
-            }
-            else{
-              rows[map.get(rows[i].question_id)].tags.push(rows[i].tag_name);
-              rows.splice(i, 1);
-              i-=1;
-            }
+          if (data.tag.length != 0){
+            querybody += 'and tag_name = \'' + data.tag + '\''
           }
+
+          if (data.date.length != 0){
+            querybody += 'and create_date <= \'' + data.date + '\''
+          }
+          console.log(querybody);
+
+          // query question
+          connection.query(querybody, function(err, rows, fields){
+            if (err) throw err;
+            console.log(rows[0]);
+
+            map = new hashmap();
+            for (var i=0; i<rows.length; i+=1){
+              if (!map.has(rows[i].question_id)){
+                map.set(rows[i].question_id, i);
+                rows[i].tags = [];
+                rows[i].tags.push(rows[i].tag_name)
+              }
+              else{
+                rows[map.get(rows[i].question_id)].tags.push(rows[i].tag_name);
+                rows.splice(i, 1);
+                i-=1;
+              }
+            }
             socket.emit('result', { data: rows, state: true});
+
+            // update balance
+            updatebody = 'update User set balance = ' + (balance - 1) + ' where user_id = \'' + data.user_id +'\'';
+            connection.query(updatebody, function(err, result){
+              if (err) throw err;
+            });
+
+            // update search history
+            //hid user_id content time
+            var date = new Date();
+            var curdate = ""+date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            insertbody = 'insert into history(user_id, content, time) values(\'' + data.user_id + '\', \'' + data.question + '\', \'' + curdate + '\')';
+            connection.query(insertbody, function(err, result) {
+              if (err) throw err;
+            });
+        });
+
         }
       });
     }
