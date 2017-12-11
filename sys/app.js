@@ -240,13 +240,16 @@ io.on('connection', function(socket){
       }
     */
     console.log(DATA);
+    var data = DATA.data;
+    var querybody = 'select * from User where user_id = \'' + data.user_id + '\' and password = \'' + data.password + '\'';
+    console.log(querybody);
 
-    connection.query('select * from User where user_id = ' + data.user_id + ' and password =' + data.password, function(err, rows, field){
+    connection.query(querybody, function(err, rows, field){
       if(err) throw err;
       if(rows.length >= 1){
         console.log('-----------USER LOGIN CHECK-----------');
         console.log('USER LOGIN: SUCCESS');
-        socket.emit('login_back',{result : true});
+        socket.emit('login_back',{result : true, data: rows});
       }
       else{
         console.log('-----------USER LOGIN CHECK-----------');

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Loading bootstrap css-->
-    
+
     <link type="text/css" rel="stylesheet" href="vendors/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.css">
     <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
@@ -80,12 +80,12 @@ $('input[type="radio"]').iCheck({
             window.alert("field cannot be empty!");
         else
         {
-            socket.emit("login", { data:  params});
+            socket.emit("login", { data:  {user_id:username, password:password}});
             socket.on('login_back', function (data) {
                 console.log("get login data:");
                 console.log(data);
-                if(data.result == "true")
-                    window.location.href = "./sys-index.html";
+                if(data.result == true)
+                    window.location.href = "./index.html";
                 else
                 {
                     window.alert("login failed!");
