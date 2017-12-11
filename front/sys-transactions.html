@@ -212,7 +212,7 @@
     $(window).load(function(){
         $(".username-class").html(localStorage.username);
 
-        socket.emit("get_history", { data:  {user_id:localStorage.username, password:password}});
+        socket.emit("get_history", { data:  {user_id:localStorage.username}});
         socket.on('get_history_result', function (data) {
             console.log("get data:");
             console.log(data);
