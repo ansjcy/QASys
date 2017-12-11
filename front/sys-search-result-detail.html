@@ -295,6 +295,7 @@
 
 
         var promise = new Promise(function (resolve, reject) {
+          console.log(localStorage);
             var answers = JSON.parse(localStorage.answer_answers);
             var question = JSON.parse(localStorage.answer_question);
             console.log("detail get data: ");
@@ -302,6 +303,7 @@
             resolve([answers, question]);
         });
         promise.then(function (data) {
+          console.log(data);
             var answer = data[0];
             var question = data[1];
             $("#my-title").html(question.title);

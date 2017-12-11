@@ -250,7 +250,7 @@ io.on('connection', function(socket){
     querybody = 'select * from Answer where question_id = ' + data;
     connection.query(querybody, function(err, rows, fields){
       if (err) throw err;
-      console.log(rows.length);
+      console.log(rows);
       socket.emit('detail', { data: rows });
     });
   });

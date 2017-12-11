@@ -330,12 +330,12 @@ $(window).load(function() {
             socket.on('detail', function (ans) {
                 console.log("get query data:");
                 console.log(ans);
-                loacalStorage.setItem("answer_answers", JSON.stringify(ans));
+                localStorage.setItem("answer_answers", JSON.stringify(ans.data));
                 for(var j = 0; j < data.length; ++j)
                 {
                     if(data[j].question_id = questionId)
                     {
-                        localStorage.setItem("answer_question", data[j]);
+                        localStorage.setItem("answer_question", JSON.stringify(data[j]));
                     }
                 }
                window.location.href = "./sys-search-result-detail.html";
